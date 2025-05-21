@@ -58,7 +58,7 @@ class SleepSensePlot(QMainWindow):
         self.setWindowTitle("Developer Mode - Sleepsense Plotting")
 
         # Load data
-        file_path = r"C:\Users\DE\Downloads\testing_breath_2\DATA1623.TXT"
+        file_path = r"C:\Users\Deckmount\Downloads\DATA1623.TXT"
         self.data = pd.read_csv(file_path, header=None)
         self.time = self.data[0].astype(float) / 1000  # ms to seconds
         self.body_pos = self.data[1].astype(int)
@@ -139,15 +139,15 @@ class SleepSensePlot(QMainWindow):
 
     def get_body_arrow(self, value):
         if value == 1:
-            return "▲"  # Up
+            return "↑"  # Up
         elif value == 2:
-            return "▼"  # Down
+            return "↓"  # Down
         elif value == 3:
-            return "◀"  # Left
+            return "←"  # Left
         elif value == 4:
-            return "▶"  # Right
+            return "→"  # Right
         else:
-            return "?"  # Unknown
+            return "🧘"  # Unknown
 
     def plot_signals(self):
         self.ax.clear()
@@ -157,22 +157,23 @@ class SleepSensePlot(QMainWindow):
         t = self.time[mask]
 
         offset = [0, 1.2, 2.4, 3.6]
+      
         body_pos = self.body_pos_n[mask]
         pulse = self.pulse_n[mask] * self.scales['Pulse']
         spo2 = self.spo2_n[mask] * self.scales['SpO2']
         flow = self.flow_n[mask] * self.scales['Airflow']
 
         # Plot body position as points + arrows
-        self.ax.plot(t, body_pos + offset[0], label="Body Position", color="black", linestyle='', marker='o')
+        # self.ax.plot(t, body_pos + offset[0], label="Body Position", color="black", linestyle='', marker='o')
         for ti, bi in zip(t, self.body_pos[mask]):
             symbol = self.get_body_arrow(bi)
             y_offset = offset[0] + 0.1  # Add vertical offset for better visibility
             self.ax.text(ti, y_offset, symbol, fontsize=12, ha='center', va='center', color='blue')
 
         # Plot other signals
-        self.ax.plot(t, pulse + offset[1], label="Pulse", color="red")
-        self.ax.plot(t, spo2 + offset[2], label="SpO2", color="green")
-        self.ax.plot(t, flow + offset[3], label="Airflow", color="blue")
+        self.ax.plot(t, pulse + offset[1], label="Pulse", color="red",linewidth=0.5)
+        self.ax.plot(t, spo2 + offset[2], label="SpO2", color="green",linewidth=0.5)
+        self.ax.plot(t, flow + offset[3], label="Airflow", color="blue",linewidth=0.5)
 
         yticks = [np.mean(sig) + off for sig, off in zip([body_pos, pulse, spo2, flow], offset)]
         self.ax.set_yticks(yticks)
