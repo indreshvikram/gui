@@ -106,20 +106,20 @@ class SleepSensePlot(QMainWindow):
         grid_layout = QGridLayout()
         main_layout.addLayout(grid_layout)
 
-        # Left signal zoom buttons
-        left_panel = QVBoxLayout()
-        left_panel.setAlignment(Qt.AlignTop)
-        for signal in ['Pulse', 'SpO2', 'Airflow']:
-            label = HoverLabel(
-                signal_name=signal,
-                zoom_callback_in=self.zoom_in,
-                zoom_callback_out=self.zoom_out
-            )
-            left_panel.addWidget(label)
+        # # Left signal zoom buttons
+        # left_panel = QVBoxLayout()
+        # left_panel.setAlignment(Qt.AlignTop)
+        # for signal in ['Pulse', 'SpO2', 'Airflow']:
+        #     label = HoverLabel(
+        #         signal_name=signal,
+        #         zoom_callback_in=self.zoom_in,
+        #         zoom_callback_out=self.zoom_out
+        #     )
+        #     left_panel.addWidget(label)
 
-        left_container = QWidget()
-        left_container.setLayout(left_panel)
-        grid_layout.addWidget(left_container, 0, 0, alignment=Qt.AlignTop)
+        # left_container = QWidget()
+        # left_container.setLayout(left_panel)
+        # grid_layout.addWidget(left_container, 0, 0, alignment=Qt.AlignTop)
 
         # Plot in center
         grid_layout.addWidget(self.canvas, 0, 1, 5, 1)
@@ -196,7 +196,7 @@ class SleepSensePlot(QMainWindow):
         self.window_start = self.start_time + value / 10.0
         self.plot_signals()
 
-    def zoom_in(self, signal_name):
+    def zoom_in(self, signal_name): 
         self.scales[signal_name] *= 1.2
         self.plot_signals()
 

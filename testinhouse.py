@@ -30,13 +30,10 @@ class SleepSensePlot(QMainWindow):
         super().__init__()
         self.setWindowTitle("Developer Mode - Sleepsense Plotting")
 
-<<<<<<< HEAD
-        # Load data
-<<<<<<< Updated upstream
+
         file_path = r"DATA1623.TXT"
-=======
         file_path = r"C:\Users\Deckmount\Downloads\DATA1623.TXT"
->>>>>>> Stashed changes
+
         self.data = pd.read_csv(file_path, header=None)
         self.time = self.data[0].astype(float) / 1000  # ms to seconds
         self.body_pos = self.data[1].astype(int)
@@ -47,11 +44,11 @@ class SleepSensePlot(QMainWindow):
         # OSA, CSA, HSA total count
         self.csa_count, self.osa_count, self.hsa_count = self.detect_apneas()
         print(f"CSA: {self.csa_count}, OSA: {self.osa_count}, HSA: {self.hsa_count}")
-=======
+
         self.file_path = "DATA1131.TXT"
         self.load_data()
         self.normalize_signals()
->>>>>>> 39a11c0e077b44238deaf775b6354c8da64cc646
+
 
         self.start_time = self.time.iloc[0]
         self.end_time = self.time.iloc[-1]
@@ -65,11 +62,7 @@ class SleepSensePlot(QMainWindow):
         main_layout = QVBoxLayout(self.central_widget)
 
         timeframe_layout = QHBoxLayout()
-<<<<<<< HEAD
-        for label, sec in [("5s", 5), ("10s", 10), ("30s", 30), ("1m", 60), ("5m", 300),("10m", 600)]:
-=======
         for label, sec in [("5s", 5), ("10s", 10), ("30s", 30), ("1m", 60), ("2m", 120)]:
->>>>>>> 39a11c0e077b44238deaf775b6354c8da64cc646
             btn = QPushButton(label)
             btn.clicked.connect(lambda _, s=sec: self.set_window_size(s))
             timeframe_layout.addWidget(btn)
@@ -174,8 +167,6 @@ class SleepSensePlot(QMainWindow):
         pulse = self.pulse_n[mask] * self.scales['Pulse']
         spo2 = self.spo2_n[mask] * self.scales['SpO2']
         flow = self.flow_n[mask] * self.scales['Airflow']
-
-<<<<<<< HEAD
         # Plot body position as points + arrows
         self.ax.plot(t, body_pos + offset[0],  color="black", linestyle='', marker='o')
         for ti, bi in zip(t, self.body_pos[mask]):
@@ -187,11 +178,9 @@ class SleepSensePlot(QMainWindow):
         self.ax.plot(t, pulse + offset[1],  color="red")
         self.ax.plot(t, spo2 + offset[2],  color="green")
         self.ax.plot(t, flow + offset[3],  color="blue")
-=======
         self.ax.plot(t, pulse + offset[1], label="Pulse", color="red")
         self.ax.plot(t, spo2 + offset[2], label="SpO2", color="green")
         self.ax.plot(t, flow + offset[3], label="Airflow", color="blue")
->>>>>>> 39a11c0e077b44238deaf775b6354c8da64cc646
 
         yticks = [np.mean(sig) + off for sig, off in zip([body_pos, pulse, spo2, flow], offset)]
         self.ax.set_yticks(yticks)
