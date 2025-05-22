@@ -58,7 +58,11 @@ class SleepSensePlot(QMainWindow):
         self.setWindowTitle("Developer Mode - Sleepsense Plotting")
 
         # Load data
+<<<<<<< Updated upstream
         file_path = r"DATA1623.TXT"
+=======
+        file_path = r"C:\Users\Deckmount\Downloads\DATA1623.TXT"
+>>>>>>> Stashed changes
         self.data = pd.read_csv(file_path, header=None)
         self.time = self.data[0].astype(float) / 1000  # ms to seconds
         self.body_pos = self.data[1].astype(int)
@@ -94,7 +98,7 @@ class SleepSensePlot(QMainWindow):
 
         # Timeframe buttons on top
         timeframe_layout = QHBoxLayout()
-        for label, sec in [("5s", 5), ("10s", 10), ("30s", 30), ("1m", 60), ("5m", 300)]:
+        for label, sec in [("5s", 5), ("10s", 10), ("30s", 30), ("1m", 60), ("5m", 300),("10m", 600)]:
             btn = QPushButton(label)
             btn.clicked.connect(lambda _, s=sec: self.set_window_size(s))
             timeframe_layout.addWidget(btn)
@@ -163,16 +167,16 @@ class SleepSensePlot(QMainWindow):
         flow = self.flow_n[mask] * self.scales['Airflow']
 
         # Plot body position as points + arrows
-        self.ax.plot(t, body_pos + offset[0], label="Body Position", color="black", linestyle='', marker='o')
+        self.ax.plot(t, body_pos + offset[0],  color="black", linestyle='', marker='o')
         for ti, bi in zip(t, self.body_pos[mask]):
             symbol = self.get_body_arrow(bi)
             y_offset = offset[0] + 0.1  # Add vertical offset for better visibility
             self.ax.text(ti, y_offset, symbol, fontsize=12, ha='center', va='center', color='blue')
 
         # Plot other signals
-        self.ax.plot(t, pulse + offset[1], label="Pulse", color="red")
-        self.ax.plot(t, spo2 + offset[2], label="SpO2", color="green")
-        self.ax.plot(t, flow + offset[3], label="Airflow", color="blue")
+        self.ax.plot(t, pulse + offset[1],  color="red")
+        self.ax.plot(t, spo2 + offset[2],  color="green")
+        self.ax.plot(t, flow + offset[3],  color="blue")
 
         yticks = [np.mean(sig) + off for sig, off in zip([body_pos, pulse, spo2, flow], offset)]
         self.ax.set_yticks(yticks)
