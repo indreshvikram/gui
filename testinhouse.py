@@ -58,7 +58,7 @@ class SleepSensePlot(QMainWindow):
         self.setWindowTitle("Developer Mode - Sleepsense Plotting")
 
         # Load data
-        file_path = r"C:\Users\DE\Downloads\testing_breath_2\DATA1623.TXT"
+        file_path = r"DATA1623.TXT"
         self.data = pd.read_csv(file_path, header=None)
         self.time = self.data[0].astype(float) / 1000  # ms to seconds
         self.body_pos = self.data[1].astype(int)
